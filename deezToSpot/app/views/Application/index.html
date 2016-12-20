@@ -2,7 +2,10 @@
 #{set title:'Home' /}
 
 <h1>Bienvenue</h1>
-<form  method="GET" action="@{}">
-    <input type="text" value="id">
-    <button>Définir l'utilisateur</button>
-</form>
+#{form @saveUser()}
+<input type="text" name="id" id="id" value="${id}">Id
+<br>
+<input type="text" name="nickname" id="nickname" value="${nickname}">Pseudo
+<br>
+<input type="submit" value="Sauver l'utilisateur">
+#{/form}
