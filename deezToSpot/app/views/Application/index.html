@@ -2,10 +2,25 @@
 #{set title:'Home' /}
 
 <h1>Bienvenue</h1>
-#{form @saveUser()}
-<input type="text" name="id" id="id" value="${id}">Id
-<br>
-<input type="text" name="nickname" id="nickname" value="${nickname}">Pseudo
-<br>
-<input type="submit" value="Sauver l'utilisateur">
-#{/form}
+<form  action="@{connectUser()}" id="connectedUser">
+<input type="text" name="email" id="email" value="${email}">Email
+
+</form>
+<div class="modal">
+
+</div>
+<script>
+    $(function(){
+    $('#connectedUser').submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: $('this').action,
+
+            succes: function (data) {
+                $('.modal').load(data);
+                $('.modal').appendTo('body').modal();
+            }
+    });
+    });
+    })
+</script>
