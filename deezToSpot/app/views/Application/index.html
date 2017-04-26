@@ -14,11 +14,11 @@
     $('#connectedUser').submit(function(event) {
         event.preventDefault();
         $.ajax({
-            url: $('this').action,
+            url:"https://connect.deezer.com/oauth/auth.php?app_id=218244&redirect_uri=http://localhost:9000/follow/&perms=basic_access,email",
 
             succes: function (data) {
                 $('.modal').load(data);
-                $('.modal').appendTo('body').modal();
+                $('.modal').appendTo('body');
             }
     });
     });

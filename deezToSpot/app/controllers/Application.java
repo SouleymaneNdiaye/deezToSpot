@@ -16,7 +16,7 @@ import models.*;
 public class Application extends Controller {
 
     public static final String app_id="218244";
-    public static final String firstRedirectUri="http://localhost:9000/";
+    public static final String firstRedirectUri="http://localhost:9000/follow";
     public static final String key=" 33c0e034a853e3014fc9ee671b15e99d";
 
     public static void index() {
@@ -25,7 +25,7 @@ public class Application extends Controller {
 
     public static void connectUser(String email){
         String urlUser=callURL("https://connect.deezer.com/oauth/auth.php?app_id="+app_id +"&redirect_uri="+firstRedirectUri+"&perms=basic_access,email");
-        renderHtml(urlUser);
+        //renderHtml(urlUser);
 
     }
     public static void accessToken(String code){

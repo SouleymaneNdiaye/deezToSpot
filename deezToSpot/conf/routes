@@ -5,7 +5,7 @@
 # Home page
 GET     /                                       Application.index
 GET     /test/?                                  Application.saveUser
-GET     http://localhost:9000/?{code}           Application.accessToken
+GET     http://localhost:9000/follow/?code={code}      Application.accessToken
 GET     /test2/                                 Application.connectUser
 # Ignore favicon requests
 GET     /favicon.ico                            404
