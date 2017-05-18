@@ -5,8 +5,11 @@
 # Home page
 GET     /                                       Application.index
 GET     /test/?                                  Application.saveUser
-GET     http://localhost:9000/follow/?code={code}      Application.accessToken
+GET     /follow                                 Application.accessToken
 GET     /test2/                                 Application.connectUser
+GET     /getSpotAccessToken                     Application.spotConnection
+GET     /putSpotAlbums                           Application.putSpotAlbums
+GET     /getDeezAlbums                           Application.getGson
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

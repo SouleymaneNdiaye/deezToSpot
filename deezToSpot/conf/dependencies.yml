@@ -2,3 +2,5 @@
 
 require:
     - play
+    - com.google.code.gson -> gson 2.8.1
+    - se.michaelthelin.spotify -> spotify-web-api-java 1.5.0

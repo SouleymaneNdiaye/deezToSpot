@@ -1,0 +1,6 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+#{list album, as: 'album'}
+${album.id}-${album.title}
+#{/list}

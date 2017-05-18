@@ -1,0 +1,21 @@
+{
+  "album": {
+    "id": "42097",
+    "title": "She was a girl",
+    "link": "https://www.deezer.com/album/42097",
+    "cover": "https://api.deezer.com/album/42097/image",
+    "cover_small": "https://e-cdns-images.dzcdn.net/images/cover/0173739394bdc2476e8a25f9699e2606/56x56-000000-80-0-0.jpg",
+    "cover_medium": "https://e-cdns-images.dzcdn.net/images/cover/0173739394bdc2476e8a25f9699e2606/250x250-000000-80-0-0.jpg",
+    "cover_big": "https://e-cdns-images.dzcdn.net/images/cover/0173739394bdc2476e8a25f9699e2606/500x500-000000-80-0-0.jpg",
+    "cover_xl": "https://e-cdns-images.dzcdn.net/images/cover/0173739394bdc2476e8a25f9699e2606/1000x1000-000000-80-0-0.jpg",
+    "nb_tracks": 22,
+    "release_date": "2005-05-11",
+    "record_type": "album",
+    "available": true,
+    "tracklist": "https://api.deezer.com/album/42097/tracks",
+    "explicit_lyrics": false,
+    "time_add": 1401053766,
+
+    "type": "album"
+  }
+}
