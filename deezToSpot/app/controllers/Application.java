@@ -169,9 +169,8 @@ public class Application extends Controller {
                 System.out.println("Printing results..");
                 for (SimpleAlbum album : albumSearchResult.getItems()) {
                     System.out.println("Ajout de l'album: " + album.getName() + "avec l'id: " + album.getId());
+                    SpotifyHttpManager.builder().build().put("https://api.spotify.com/v1/me/albums?ids=" + album.getId());
 
-                    String url = "https://api.spotify.com/v1/me/albums?ids=" + album.getId();
-                    callURL(url);
                 }
 
             } catch (Exception e) {
