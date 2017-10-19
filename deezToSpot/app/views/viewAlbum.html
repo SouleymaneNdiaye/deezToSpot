@@ -1,0 +1,12 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h1>Bienvenue ${user.nickname} avec l'id ${user.userId}</h1>
+
+
+<h2>
+    Vos albums sont les suivants
+</h2>
+<p>
+${jsonAlbum}
+<p>
