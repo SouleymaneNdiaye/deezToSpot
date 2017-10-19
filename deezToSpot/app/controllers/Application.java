@@ -6,20 +6,12 @@ import com.google.common.util.concurrent.SettableFuture;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import com.sun.org.apache.bcel.internal.generic.GETFIELD;
 import com.wrapper.spotify.Api;
-import com.wrapper.spotify.SpotifyHttpManager;
-import com.wrapper.spotify.UtilProtos;
-import com.wrapper.spotify.methods.AlbumRequest;
-import com.wrapper.spotify.methods.AlbumSearchRequest;
 import com.wrapper.spotify.methods.authentication.ClientCredentialsGrantRequest;
 import com.wrapper.spotify.models.ClientCredentials;
-import com.wrapper.spotify.models.Page;
-import com.wrapper.spotify.models.SimpleAlbum;
-import groovy.json.internal.JsonParserCharArray;
-
-import play.*;
-import play.mvc.*;
+import models.Album;
+import models.User;
+import play.mvc.Controller;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -29,9 +21,8 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
-import java.util.*;
-
-import models.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Application extends Controller {
@@ -44,6 +35,9 @@ public class Application extends Controller {
     public static void index() {
         render();
     }
+    public static void channel() {
+        render("channel.html");
+    }
 
     public static void connectUser(String email) {
         String urlUser = callURL("https://connect.deezer.com/oauth/auth.php?app_id=" + app_id + "&redirect_uri=" + firstRedirectUri + "&perms=basic_access,email");
@@ -54,7 +48,7 @@ public class Application extends Controller {
     public static void accessToken(String code) throws FileNotFoundException {
         String app = app_id;
         String Skey = key;
-        getGson();
+//        getGson();
         render("RetourCode.html", code, app, Skey);
     }
 
@@ -148,34 +142,35 @@ public class Application extends Controller {
             }
         });
     }
-
-
-    public static void putSpotAlbums() {
-        final String clientId = "2c7ac924a805414aac4cc62d009ffaa0";
-        final String clientSecret = "308218fb2c2240c1b0cd0c256aa3fdf5";
-        final String accessToken = "BQDM28bYRPL3xnteWVnWYz0GB3f8II9Xfz1eGPwqcQnM8HB8veFIvEQXETaSbuPIWtqAkhMw80VLQv5q5uUxFg";
-
-        final Api api = Api.builder()
-                .clientId(clientId)
-                .clientSecret(clientSecret)
-                .accessToken(accessToken)
-                .build();
-        for (Album deezAlbum : albumsToSpot) {
-            final AlbumSearchRequest request1 = api.searchAlbums(deezAlbum.title).offset(0).limit(1).build();
-
-            try {
-                final Page<SimpleAlbum> albumSearchResult = request1.get();
-
-                System.out.println("Printing results..");
-                for (SimpleAlbum album : albumSearchResult.getItems()) {
-                    System.out.println("Ajout de l'album: " + album.getName() + "avec l'id: " + album.getId());
-                    SpotifyHttpManager.builder().build().put("https://api.spotify.com/v1/me/albums?ids=" + album.getId());
-
-                }
-
-            } catch (Exception e) {
-                System.out.println("Something went wrong!" + e.getMessage());
-            }
-        }
-    }
 }
+
+//
+//    public static void putSpotAlbums() {
+//        final String clientId = "2c7ac924a805414aac4cc62d009ffaa0";
+//        final String clientSecret = "308218fb2c2240c1b0cd0c256aa3fdf5";
+//        final String accessToken = "BQDM28bYRPL3xnteWVnWYz0GB3f8II9Xfz1eGPwqcQnM8HB8veFIvEQXETaSbuPIWtqAkhMw80VLQv5q5uUxFg";
+//
+//        final Api api = Api.builder()
+//                .clientId(clientId)
+//                .clientSecret(clientSecret)
+//                .accessToken(accessToken)
+//                .build();
+//        for (Album deezAlbum : albumsToSpot) {
+//            final AlbumSearchRequest request1 = api.searchAlbums(deezAlbum.title).offset(0).limit(1).build();
+//
+//            try {
+//                final Page<SimpleAlbum> albumSearchResult = request1.get();
+//
+//                System.out.println("Printing results..");
+//                for (SimpleAlbum album : albumSearchResult.getItems()) {
+//                    System.out.println("Ajout de l'album: " + album.getName() + "avec l'id: " + album.getId());
+//                    SpotifyHttpManager.builder().build().put("https://api.spotify.com/v1/me/albums?ids=" + album.getId());
+//
+//                }
+//
+//            } catch (Exception e) {
+//                System.out.println("Something went wrong!" + e.getMessage());
+//            }
+//        }
+//    }
+//}

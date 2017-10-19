@@ -20,6 +20,29 @@
 
 </head>
     <body>
+    <div id="dz-root"></div>
+    <script src="https://e-cdns-files.dzcdn.net/js/min/dz.js"></script>
+    <script>
+        DZ.init({
+            appId  : '218244',
+            channelUrl : 'http://localhost:9000/channel.html'
+        });
+    </script>
+    <div id="dz-root"></div>
+    <script>
+        window.dzAsyncInit = function() {
+            DZ.init({
+                appId  : '218244',
+                channelUrl : 'http://localhost:9000/channel.html'
+            });
+        };
+        (function() {
+            var e = document.createElement('script');
+            e.src = 'https://e-cdns-files.dzcdn.net/js/min/dz.js';
+            e.async = true;
+            document.getElementById('dz-root').appendChild(e);
+        }());
+    </script>
         #{doLayout /}
     </body>
 </html>

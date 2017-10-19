@@ -3,7 +3,7 @@
 
 <h1>Bienvenue</h1>
 <a data-toggle="custom-modal" data-target="generic-modal" href="https://connect.deezer.com/oauth/auth.php?app_id=218244&redirect_uri=http://localhost:9000/follow&perms=basic_access,email">Se connecter à Deezer</a>
-
+<button id="login">Login SDK</button>
 
 <div id="generic-modal" class="modal">
     <div class="modal-dialog modal-vlg ">
@@ -12,3 +12,18 @@
         </div>
     </div>
 </div>
+<script>
+    $('#login').click(function () {
+        DZ.login(function (response) {
+            if (response.authResponse) {
+                console.log('Welcome!  Fetching your information.... ');
+                DZ.api('/user/me', function (response) {
+                    console.log('Good to see you, ' + response.name + '.');
+                });
+            } else {
+                console.log('User cancelled login or did not fully authorize.');
+            }
+        }, {perms: 'basic_access,email'});
+
+    });
+</script>

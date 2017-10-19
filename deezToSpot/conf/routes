@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                                       Application.index
+GET     /channel                                 Application.channel
 GET     /test/?                                  Application.saveUser
 GET     /follow                                 Application.accessToken
 GET     /test2/                                 Application.connectUser
