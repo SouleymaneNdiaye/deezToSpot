@@ -45,11 +45,10 @@ public class Application extends Controller {
 
     }
 
-    public static void accessToken(String code) throws FileNotFoundException {
-        String app = app_id;
-        String Skey = key;
+    public static void indexDeez(String user) throws FileNotFoundException {
+
 //        getGson();
-        render("RetourCode.html", code, app, Skey);
+        render("indexDeez.html", user);
     }
 
     public static void saveUser(Long id, String nickname) {
@@ -148,12 +147,12 @@ public class Application extends Controller {
 //    public static void putSpotAlbums() {
 //        final String clientId = "2c7ac924a805414aac4cc62d009ffaa0";
 //        final String clientSecret = "308218fb2c2240c1b0cd0c256aa3fdf5";
-//        final String accessToken = "BQDM28bYRPL3xnteWVnWYz0GB3f8II9Xfz1eGPwqcQnM8HB8veFIvEQXETaSbuPIWtqAkhMw80VLQv5q5uUxFg";
+//        final String indexDeez = "BQDM28bYRPL3xnteWVnWYz0GB3f8II9Xfz1eGPwqcQnM8HB8veFIvEQXETaSbuPIWtqAkhMw80VLQv5q5uUxFg";
 //
 //        final Api api = Api.builder()
 //                .clientId(clientId)
 //                .clientSecret(clientSecret)
-//                .accessToken(accessToken)
+//                .indexDeez(indexDeez)
 //                .build();
 //        for (Album deezAlbum : albumsToSpot) {
 //            final AlbumSearchRequest request1 = api.searchAlbums(deezAlbum.title).offset(0).limit(1).build();

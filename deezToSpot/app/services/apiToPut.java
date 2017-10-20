@@ -14,7 +14,7 @@ package services;
 //    private UtilProtos.Url.Scheme scheme;
 //    private int port;
 //    private String host;
-//    private String accessToken;
+//    private String indexDeez;
 //    private String refreshToken;
 //
 //
@@ -24,8 +24,8 @@ package services;
 //        builder.scheme(this.scheme);
 //        builder.host(this.host);
 //        builder.port(this.port);
-//        if(this.accessToken != null) {
-//            builder.header("Authorization", "Bearer " + this.accessToken);
+//        if(this.indexDeez != null) {
+//            builder.header("Authorization", "Bearer " + this.indexDeez);
 //        }
 //
 //    }

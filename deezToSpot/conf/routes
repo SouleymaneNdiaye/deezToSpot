@@ -4,13 +4,13 @@
 
 # Home page
 GET     /                                       Application.index
-GET     /channel                                 Application.channel
-GET     /test/?                                  Application.saveUser
-GET     /follow                                 Application.accessToken
+GET     /channel                                Application.channel
+GET     /test/?                                 Application.saveUser
+GET     /indexDeez/{user}                       Application.indexDeez
 GET     /test2/                                 Application.connectUser
 GET     /getSpotAccessToken                     Application.spotConnection
-GET     /putSpotAlbums                           Application.putSpotAlbums
-GET     /getDeezAlbums                           Application.getGson
+GET     /putSpotAlbums                          Application.putSpotAlbums
+GET     /getDeezAlbums                          Application.getGson
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

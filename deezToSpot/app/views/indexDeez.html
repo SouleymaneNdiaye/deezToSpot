@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<script>
+$()
+    DZ.api('/user/me/albums', function (response) {
+        console.log(response);
+
+    });
+</script>

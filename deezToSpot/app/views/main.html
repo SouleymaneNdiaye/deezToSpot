@@ -13,7 +13,7 @@
     <script src="@{'/public/javascripts/jquery-2.1.1.min.js'}" type="text/javascript"
             charset="${_response_encoding}"></script>
 
-
+    <script src="https://e-cdns-files.dzcdn.net/js/min/dz.js"></script>
 #{get 'headScripts' /}
 
 #{get 'moreScripts' /}
@@ -25,7 +25,7 @@
     <script>
         DZ.init({
             appId  : '218244',
-            channelUrl : 'http://localhost:9000/channel.html'
+            channelUrl : 'http://localhost:9000/channel'
         });
     </script>
     <div id="dz-root"></div>
@@ -33,7 +33,7 @@
         window.dzAsyncInit = function() {
             DZ.init({
                 appId  : '218244',
-                channelUrl : 'http://localhost:9000/channel.html'
+                channelUrl : 'http://localhost:9000/channel'
             });
         };
         (function() {

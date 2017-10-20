@@ -1,29 +1,54 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
+<div id="Welcome">
+    <h1>Bienvenue</h1>
+    <button id="login">Se connecter à spotToDeez</button>
+</div>
+<div id="WelcomeUser">
 
-<h1>Bienvenue</h1>
-<a data-toggle="custom-modal" data-target="generic-modal" href="https://connect.deezer.com/oauth/auth.php?app_id=218244&redirect_uri=http://localhost:9000/follow&perms=basic_access,email">Se connecter à Deezer</a>
-<button id="login">Login SDK</button>
+    <h1 id="userName">Bienvenue ${user}</h1>
+    <h2>Vous êtes connecté à DeezToSpot</h2>
 
-<div id="generic-modal" class="modal">
-    <div class="modal-dialog modal-vlg ">
-        <div class="modal-content">
+    <p>Que voulez vous faire?</p>
 
-        </div>
-    </div>
+    <button id="albumsView">
+        Voir vos albums
+    </button>
+
+    <button>
+        Exporter vos albums
+    </button>
+
 </div>
 <script>
+    $('#Welcome').show();
+    $('#WelcomeUser').hide();
     $('#login').click(function () {
         DZ.login(function (response) {
             if (response.authResponse) {
-                console.log('Welcome!  Fetching your information.... ');
                 DZ.api('/user/me', function (response) {
-                    console.log('Good to see you, ' + response.name + '.');
+                    $('#Welcome').hide()
+                    $('#userName').text("Bienvenue " + response.name);
+                    $('#WelcomeUser').show()
                 });
+
             } else {
                 console.log('User cancelled login or did not fully authorize.');
             }
         }, {perms: 'basic_access,email'});
 
     });
+    $('#albumsView').click(function () {
+        DZ.api('/user/me/albums', function (data) {
+            var albums = []
+            var boucle = Math.trunc(data.total/25) + 1;
+            for (i = 0; i < boucle; i++) {
+                DZ.api('/user/me/albums?index=' + (i * 25), function (data) {
+                    albums.push(data);
+                })
+            }
+            console.log(albums);
+        } )
+   });
+
 </script>
