@@ -13,9 +13,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="@{'/public/javascripts/jquery-2.1.1.min.js'}" type="text/javascript"
             charset="${_response_encoding}"></script>
+    <script src="@{'/public/javascripts/jquery-ui-1.10.4.custom.min.js'}" type="text/javascript"
+            charset="${_response_encoding}"></script>
+    <script src="@{'/public/javascripts/bootstrap-3.1.0.min.js'}" type="text/javascript"
+            charset="${_response_encoding}"></script>
+    <script src="@{'/public/javascripts/bootstrap-popover.override.js'}" type="text/javascript"
+            charset="${_response_encoding}"></script>
 
     <script src="https://e-cdns-files.dzcdn.net/js/min/dz.js"></script>
-    <script src="masonry.pkgd.min.js"></script>
+    <script src="/public/masonry.pkgd.min.js"></script>
 #{get 'headScripts' /}
 
 #{get 'moreScripts' /}
@@ -31,6 +37,9 @@
         });
     </script>
     <div id="dz-root"></div>
+    <div class="main">
+        <img src="../public/images/piano.jpg" id="bg" alt="">
         #{doLayout /}
+    </div>
     </body>
 </html>

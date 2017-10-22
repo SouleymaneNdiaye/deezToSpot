@@ -11,6 +11,7 @@ import com.wrapper.spotify.methods.authentication.ClientCredentialsGrantRequest;
 import com.wrapper.spotify.models.ClientCredentials;
 import models.Album;
 import models.User;
+import net.sf.json.JSON;
 import play.mvc.Controller;
 
 import java.io.BufferedReader;
@@ -45,9 +46,16 @@ public class Application extends Controller {
 
     }
 
-    public static void indexDeez(String user) throws FileNotFoundException {
+    public static void getDeezAlbum(String data){
+        Gson gson=new Gson();
 
-//        getGson();
+        Album album = new Gson().fromJson(data,Album.class);
+
+        render("viewAlbum.html",album);
+
+    }
+
+    public static void indexDeez(String user) throws FileNotFoundException {
         render("indexDeez.html", user);
     }
 

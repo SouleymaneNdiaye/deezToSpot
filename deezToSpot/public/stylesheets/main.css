@@ -19,3 +19,31 @@ width: 100%
 margin-left:10px;
 margin-right:10px;
 }
+.main{
+}
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+z-index:-1;
+  min-width: 100%;
+  min-height: 100%;
+}
+#banner {
+  height:80px;
+  background-position: 500px;
+  width:100%;
+  overflow:hidden;
+}
+
+.Welcome{
+color:#ffcc99;
+ align:center;
+}
+.WelcomeUser{
+color:#ffcc99;
+ align:center;
+}
+.zplus{
+z-index:+1000;
+}
