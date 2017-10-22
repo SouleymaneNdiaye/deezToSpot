@@ -6,14 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>#{get 'title' /}</title>
     <meta charset="${_response_encoding}">
-    <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.less'}">
+    <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
 
 #{get 'moreStyles' /}
     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="@{'/public/javascripts/jquery-2.1.1.min.js'}" type="text/javascript"
             charset="${_response_encoding}"></script>
 
     <script src="https://e-cdns-files.dzcdn.net/js/min/dz.js"></script>
+    <script src="masonry.pkgd.min.js"></script>
 #{get 'headScripts' /}
 
 #{get 'moreScripts' /}
@@ -29,20 +31,6 @@
         });
     </script>
     <div id="dz-root"></div>
-    <script>
-        window.dzAsyncInit = function() {
-            DZ.init({
-                appId  : '218244',
-                channelUrl : 'http://localhost:9000/channel'
-            });
-        };
-        (function() {
-            var e = document.createElement('script');
-            e.src = 'https://e-cdns-files.dzcdn.net/js/min/dz.js';
-            e.async = true;
-            document.getElementById('dz-root').appendChild(e);
-        }());
-    </script>
         #{doLayout /}
     </body>
 </html>

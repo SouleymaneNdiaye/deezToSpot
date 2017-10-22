@@ -1,5 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
+<div class="content">
 <div id="Welcome">
     <h1>Bienvenue</h1>
     <button id="login">Se connecter à spotToDeez</button>
@@ -20,7 +21,10 @@
     </button>
 
 </div>
-<script>
+<div id="albumPochette" class="masonry">
+
+</div>
+    <script>
     $('#Welcome').show();
     $('#WelcomeUser').hide();
     $('#login').click(function () {
@@ -40,15 +44,41 @@
     });
     $('#albumsView').click(function () {
         DZ.api('/user/me/albums', function (data) {
-            var albums = []
+            var albums=[];
+
             var boucle = Math.trunc(data.total/25) + 1;
             for (i = 0; i < boucle; i++) {
-                DZ.api('/user/me/albums?index=' + (i * 25), function (data) {
-                    albums.push(data);
-                })
+                DZ.api('/user/me/albums?index=' + (i * 25), function (albumArray) {
+                if(albumArray){
+                    var albumListByPage=JSON.parse(JSON.stringify(albumArray.data));
+                    console.log(albumListByPage);
+                    for(j=1;j<albumListByPage.length;j++){
+
+                    $('#albumPochette').append('<div id="'+albumListByPage[j].id+'" class="item"><img src="'+albumListByPage[j].cover+'"></div>');
+
+                    }
+
+                    albums.push(albumListByPage);
+                }
+            })
             }
-            console.log(albums);
+            console.log(JSON.stringify(albums));
+
+            albums.forEach (function(album){
+            i=1;
+            console.log(i);
+            console.log(album);
+            i++;
+            });
+            <!--console.log(albumJson);-->
+            <!--console.log(albums[0]);-->
+            <!--for(i=0;i<albums.length;i++){-->
+            <!--for(j=0;i<albums[i].length;j++){-->
+                <!--$('#albumPochette').append('<img src="'+albums[i].data[j].cover+'">');-->
+                <!--console.log(albums[i]);-->
+            <!--}-->
+            <!--}-->
         } )
    });
-
-</script>
+    </script>
+</div>

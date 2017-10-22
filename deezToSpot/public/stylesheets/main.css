@@ -1,0 +1,21 @@
+#albumPochette {
+width: 100%
+}
+
+.masonry { /* Masonry container */
+    margin-top:10px;
+    column-count: 8;
+    column-gap: 1em;
+}
+
+.item { /* Masonry bricks or child elements */
+    background-color: #eee;
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
+}
+
+.content{
+margin-left:10px;
+margin-right:10px;
+}
