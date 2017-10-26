@@ -77,6 +77,7 @@ $(function(){
 })
     var showAlbum=function (id) {
     var album;
+    $('#albumModal').modal();
     DZ.api('album/'+id, function (album) {
     console.log(album);
     if(album){
