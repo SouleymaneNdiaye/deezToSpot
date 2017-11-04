@@ -197,14 +197,12 @@ h4 {
 	MAIN CONTENT
 -------------------------------------------- */
 
-#wrapper {
+#wrapper,#wrapperSpot {
     padding-top: 90px;
 }
 #content {
     padding: 0 15px;
 }
-
-/* Effect on showing covers */
 
 .cover {
     opacity: 0.1;

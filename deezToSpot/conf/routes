@@ -12,7 +12,7 @@ GET     /getSpotAccessToken                     Application.spotConnection
 GET     /putSpotAlbums                          Application.putSpotAlbums
 GET     /getDeezAlbums                          Application.getGson
 POST     /viewAlbum                             Application.getDeezAlbum
-GET     /viewDeez                             Application.getDeezView
+GET     /viewDeez                               Application.getDeezView
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

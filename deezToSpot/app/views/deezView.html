@@ -1,22 +1,37 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <link href="" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="http://www.deezer.com/favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="http://www.deezer.com/favicon.ico" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width"/>
+    <link href="" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="http://www.deezer.com/favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="http://www.deezer.com/favicon.ico" type="image/x-icon"/>
     <link href="/../public/stylesheets/deezStyle.css" rel="stylesheet">
     <link href="/../public/images/sprite.css" rel="stylesheet">
 
     <title ng-bind="$root.title">Deezer Light</title>
 
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.3.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.12.4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
     <script src="/../public/javascripts/deezController.js"></script>
+    <script src="/../public/javascripts/spotController.js"></script>
+    <script src="/../public/javascripts/spotMainController.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
 </head>
 
-<body class="app" ng-controller="AppController">
-
+<body class="app" >
+<div  ng-app="app" ng-controller="AppController" >
 <div id="header">
     <div id="controls">
         <div id="controls_inner">
@@ -29,14 +44,18 @@
 
     <div id="playing">
         <div id="playing_meta" my-current-time>
-            <div id="playing_author"><a ng-href="{{playing_artist_link}}" class="meta_link">{{playing_artist}}</a>&nbsp;</div>
-            <div id="playing_title"><a ng-href="{{playing_album_link}}" class="meta_link">{{playing_title}}</a>&nbsp;</div>
+            <div id="playing_author"><a ng-href="{{playing_artist_link}}" class="meta_link">{{playing_artist}}</a>&nbsp;
+            </div>
+            <div id="playing_title"><a ng-href="{{playing_album_link}}" class="meta_link">{{playing_title}}</a>&nbsp;
+            </div>
         </div>
         <div id="times">
             <span id="time_current" ng-show="logged">{{time_current | humain_time}}&nbsp;</span>
             <span id="time_total" ng-show="logged">{{time_total | humain_time}}&nbsp;</span>
             <div id="slider" ng-click="sliderClicked($event)">
-                <div id="progress" ng-style="{'width': (time_current / time_total * 100) + '%'}"><div class="inline" id="progress_hand"></div></div>
+                <div id="progress" ng-style="{'width': (time_current / time_total * 100) + '%'}">
+                    <div class="inline" id="progress_hand"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -46,11 +65,12 @@
     </div>
 
     <div id="cover">
-        <a ng-href="{{playing_album_link}}" id="cover_link" ng-show="playing &amp;&amp; playing_cover_src"><img ng-src="{{playing_cover_src}}" width="80" height="80" class="inline" id="cover_image" /></a>
+        <a ng-href="{{playing_album_link}}" id="cover_link" ng-show="playing &amp;&amp; playing_cover_src"><img
+                ng-src="{{playing_cover_src}}" width="80" height="80" class="inline" id="cover_image"/></a>
     </div>
 </div>
 
-<div id="wrapper" class="layoutWrapper">
+<div id="wrapper" class="layoutWrapper col-md-6">
 
     <div id="content">
         <div id="menu">
@@ -58,11 +78,7 @@
             <a href="#/albums" class="link_tabs" ng-class="{active: view == 'albums'||view == 'album'}">Albums</a>
             <a href="#/artists" class="link_tabs" ng-class="{active: view == 'artists'}">Artists</a>
             <a href="#/favorites" class="link_tabs" ng-class="{active: view == 'favorites'}">Favorites</a>
-        </div>
-
-        <div ng-show="view == 'login'" class="loader">
-            <div class="loader_content">
-                <a class="login_link" ng-click="login()">Connect with Deezer</a></div>
+            <a class="login_link" ng-click="login()" ng-hide="{{logged}}">Connect with Deezer</a>
         </div>
 
         <div ng-show="view == 'loading'" class="loader">
@@ -89,7 +105,8 @@
                 <table class="table_tracks">
                     <tr ng-repeat="track in playlist.tracks.data">
                         <td><a class="link_track" ng-click="play_track($index)">{{track.title}}</a></td>
-                        <td style="text-align:right;"><a href="#/artist/{{track.artist.id}}">{{track.artist.name}}</a></td>
+                        <td style="text-align:right;"><a href="#/artist/{{track.artist.id}}">{{track.artist.name}}</a>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -117,7 +134,8 @@
                 <table class="table_tracks">
                     <tr ng-repeat="track in album.tracks.data">
                         <td><a class="link_track" ng-click="play_track($index)">{{track.title}}</a></td>
-                        <td style="text-align:right;"><a href="#/artist/{{track.artist.id}}">{{track.artist.name}}</a></td>
+                        <td style="text-align:right;"><a href="#/artist/{{track.artist.id}}">{{track.artist.name}}</a>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -151,7 +169,8 @@
                     <tr ng-repeat="track in favorites">
                         <td><a class="link_track" ng-click="play_track($index)">{{track.title}}</a></td>
                         <td><a href="#/album/{{track.album.id}}">{{track.album.title}}</a></td>
-                        <td style="text-align:right;"><a href="#/artist/{{track.artist.id}}">{{track.artist.name}}</a></td>
+                        <td style="text-align:right;"><a href="#/artist/{{track.artist.id}}">{{track.artist.name}}</a>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -160,7 +179,8 @@
 
         <div ng-show="view == 'search'">
             <div>
-                <div ng-show="search_tracks.length == 0 &amp;&amp; search_artists.length == 0 &amp;&amp; search_albums.length == 0" class="loader">
+                <div ng-show="search_tracks.length == 0 &amp;&amp; search_artists.length == 0 &amp;&amp; search_albums.length == 0"
+                     class="loader">
                     <div class="loader_content">No result :(</div>
                 </div>
 
@@ -168,7 +188,8 @@
                     <tr ng-repeat="track in search_tracks">
                         <td><a class="link_track" ng-click="play_track_id(track.id)">{{track.title}}</a></td>
                         <td><a href="#/album/{{track.album.id}}">{{track.album.title}}</a></td>
-                        <td style="text-align:right;"><a href="#/artist/{{track.artist.id}}">{{track.artist.name}}</a></td>
+                        <td style="text-align:right;"><a href="#/artist/{{track.artist.id}}">{{track.artist.name}}</a>
+                        </td>
                     </tr>
                 </table>
 
@@ -191,9 +212,29 @@
 
         <div class="clear"></div>
     </div>
+    <div id="dz-root"></div>
+    <script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+</div>
+</div>
+<div ng-app="deezToSpot">
+    <div id="wrapperSpot" class="layoutWrapper col-md-6" ng-controller="MainController">
+
+        <button ng-click="login()">Login with Spotify</button>
+
+        <input type="text" ng-model="searchartist" ng-change="searchArtist()" placeholder="Search for an artist">
+        <ul>
+            <li ng-repeat="artist in artists">
+                <a class="media" ng-href="{{artist.external_urls.spotify}}" target="_blank">
+                    <img ng-src="{{artist.images[0].url}}" alt="">
+                    <div class="media-details">
+                        {{artist.name}}
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 
-<div id="dz-root"></div>
-<script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+
 </body>
 </html>
