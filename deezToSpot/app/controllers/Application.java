@@ -61,6 +61,9 @@ public class Application extends Controller {
     public static void getDeezView(String user) throws FileNotFoundException {
         render("deezView.html", user);
     }
+    public static void getSpotView() throws FileNotFoundException {
+        render("spotView.html");
+    }
 
     public static void saveUser(Long id, String nickname) {
         User user = new User(id, nickname);

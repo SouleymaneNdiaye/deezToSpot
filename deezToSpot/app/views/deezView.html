@@ -216,25 +216,5 @@
     <script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
 </div>
 </div>
-<div ng-app="deezToSpot">
-    <div id="wrapperSpot" class="layoutWrapper col-md-6" ng-controller="MainController">
-
-        <button ng-click="login()">Login with Spotify</button>
-
-        <input type="text" ng-model="searchartist" ng-change="searchArtist()" placeholder="Search for an artist">
-        <ul>
-            <li ng-repeat="artist in artists">
-                <a class="media" ng-href="{{artist.external_urls.spotify}}" target="_blank">
-                    <img ng-src="{{artist.images[0].url}}" alt="">
-                    <div class="media-details">
-                        {{artist.name}}
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-
-
 </body>
 </html>
