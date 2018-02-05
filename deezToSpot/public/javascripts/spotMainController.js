@@ -1,13 +1,14 @@
 /**
  * Created by Souleymane on 04/11/2017.
  */
-var deezToSpot = angular.module('deezToSpot', []);
-deezToSpot.controller("deezToSpot",['$scope',function($scope,$http) {
+var app = angular.module('app', []);
+app.controller("deezToSpot",['$scope',function($scope) {
+
+        $scope.test=null;
 
         $scope.userId=undefined;
         $scope.userTest=undefined;
         $scope.user={
-
             display_name: undefined,
             email: undefined,
             external_urls:
@@ -50,6 +51,11 @@ deezToSpot.controller("deezToSpot",['$scope',function($scope,$http) {
 
 }
 
+
+$('#display_user').click(function () {
+    console.log($scope.user);
+
+})
 function getUserData(accessToken) {
     return $.ajax({
         url: 'https://api.spotify.com/v1/me',
@@ -59,7 +65,6 @@ function getUserData(accessToken) {
 
     });
 }
-
     loginButton = document.getElementById('btn-login');
 
 loginButton.addEventListener('click', function () {
@@ -70,19 +75,27 @@ loginButton.addEventListener('click', function () {
             });
     });
 });
+
+ function bindUser(response) {
+     $scope.user.display_name=response.display_name;
+     $scope.user.email=response.email;
+     $scope.test=response;
+     $scope.userId=response.id;
+
+}
         getUser = document.getElementById('get_user');
 
         getUser.addEventListener('click', function () {
-    var pathArray=window.location.href.split('=');
-    var accessToken=pathArray[1].split('&')[0];
+            var pathArray=window.location.href.split('=');
+            var accessToken=pathArray[1].split('&')[0];
 
             getUserData(accessToken)
                 .then(function (response) {
                     loginButton.style.display = 'none';
-                    $scope.user=$.parseJSON(JSON.stringify(response));
-                    $scope.userTest=$.parseJSON(JSON.stringify(response));
-                    $scope.userId=response.id;
-                    console.log($scope.user);
+                    var x =JSON.parse(JSON.stringify(response));
+                    console.log(x);
+
+                    bindUser(x);
                 });
 
     });
