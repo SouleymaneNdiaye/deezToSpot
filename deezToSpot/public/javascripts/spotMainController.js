@@ -95,7 +95,8 @@ loginButton.addEventListener('click', function () {
                     var x =JSON.parse(JSON.stringify(response));
                     console.log(x);
 
-                    bindUser(x);
+                    $scope.user=x;
+                    $scope.$apply();
                 });
 
     });
