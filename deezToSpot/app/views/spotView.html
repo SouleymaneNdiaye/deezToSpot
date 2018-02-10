@@ -29,44 +29,28 @@
             crossorigin="anonymous"></script>
 
 </head>
-<body>
+<body class="app">
 <div ng-app="app">
+
     <div id="wrapperSpot" class="layoutWrapper col-md-6" ng-controller="deezToSpot">
-        <h1>TEST: {{test}}</h1>
-        <h1>TEST userId: {{userId}}</h1>
-        <div class="container">
-            <h1>Displaying User Data</h1>
-            <p>Log in with your Spotify account and this demo will display information about you fetched using the
-                Spotify Web API</p>
-            <button class="btn btn-primary" id="btn-login">Login</button>
-            <button class="btn btn-primary" id="get_user">Chopper utilisateur</button>
-            <button class="btn btn-primary" id="display_user">Afficher utilisateur</button>
-            <div id="result"></div>
+        <div id="header">
+            <div class="pull-right" ng-show="user.id != 'undefined'"><img ng-src="{{user.images[0].url}}" width="80"
+                                                                          height="80" class="inline" id="cover_image"/>
+            </div>
+            <div class="pull-right" ng-show="user.id != 'undefined'">Bienvenue {{user.display_name}}</div>
         </div>
-        <p>
-            USER= {{user}}
-        </p>
-        <h2 ng-bind-html='user.id'>
-        </h2>
-        <input type="text" ng-model="user.id">
-        <div>
-            <div>User Name</div>
-            <h2>{{user.id}}</h2>
-            <h2>{{userId}}</h2>
-            <span ng-bind="userId"></span>
-            <div>Display Name</div>
-            <div>{{user.display_name}}</div>
-            <div>Country</div>
-            <div>{{user.country}}</div>
-            <div>Followers</div>
-            <div>{{user.followers.total}}</div>
-            <div>Profile</div>
-            <div><a href="{{external_urls.spotify}}" target="_blank">{{external_urls.spotify}}</a></div>
-            <div>Email</div>
-            <div>{{user.email}}</div>
-            <div>Product</div>
-            <div>{{user.product}}</div>
+        <div id="content">
+            <button class="btn btn-primary" id="btn-login">Se connecter à Spotify</button>
+            <button class="btn btn-primary" id="get_user">Données utilisateur</button>
+            <button class="btn btn-primary" id="get_albums">Albums de l'utilisateur</button>
+            <div id="albumContent">
+
+            </div>
         </div>
+        <div ng-repeat="album in albums" class="inline grid_list">
+                <img class="cover" ng-src="{{album.album.images[1].url}}" width="160" height="160" style="opacity: 1">
+                <div class="grid_title">{{album.album.name}}</div>
+            <div class="clear"></div>
         </div>
     </div>
 </div>

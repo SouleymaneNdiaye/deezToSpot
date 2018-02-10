@@ -274,3 +274,7 @@ h4 {
     text-decoration: underline;
     cursor: hand;
 }
+#userImage{
+    height: 80px;
+    right:10px;
+}

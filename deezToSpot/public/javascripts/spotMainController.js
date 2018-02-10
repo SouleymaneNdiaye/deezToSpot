@@ -5,7 +5,7 @@ var app = angular.module('app', []);
 app.controller("deezToSpot",['$scope',function($scope) {
 
         $scope.test=null;
-
+        $scope.albums=[];
         $scope.userId=undefined;
         $scope.userTest=undefined;
         $scope.user={
@@ -32,7 +32,7 @@ app.controller("deezToSpot",['$scope',function($scope) {
     }
 
     var url = getLoginURL([
-        'user-read-email'
+        'user-read-email','user-library-read','user-library-modify'
     ]);
 
     var width = 450,
@@ -55,10 +55,19 @@ app.controller("deezToSpot",['$scope',function($scope) {
 $('#display_user').click(function () {
     console.log($scope.user);
 
-})
+});
 function getUserData(accessToken) {
     return $.ajax({
         url: 'https://api.spotify.com/v1/me',
+        headers: {
+            'Authorization': 'Bearer ' + accessToken
+        }
+
+    });
+}
+function getUserAlbums(accessToken) {
+    return $.ajax({
+        url: 'https://api.spotify.com/v1/me/albums',
         headers: {
             'Authorization': 'Bearer ' + accessToken
         }
@@ -72,6 +81,9 @@ loginButton.addEventListener('click', function () {
         getUserData(accessToken)
             .then(function (response) {
                 loginButton.style.display = 'none';
+                var x =JSON.parse(JSON.stringify(response));
+                $scope.user=x;
+                $scope.$apply()
             });
     });
 });
@@ -93,13 +105,38 @@ loginButton.addEventListener('click', function () {
                 .then(function (response) {
                     loginButton.style.display = 'none';
                     var x =JSON.parse(JSON.stringify(response));
-                    console.log(x);
 
                     $scope.user=x;
                     $scope.$apply();
                 });
 
     });
+
+    getUserAlbumsBtn = document.getElementById('get_albums');
+
+        getUserAlbumsBtn.addEventListener('click', function () {
+            var pathArray=window.location.href.split('=');
+            var accessToken=pathArray[1].split('&')[0];
+
+            getUserAlbums(accessToken)
+                .then(function (response) {
+                    loginButton.style.display = 'none';
+                    var x =JSON.parse(JSON.stringify(response));
+                    console.log(x);
+
+                    $scope.albums=x.items;
+                    $scope.$apply();
+                    console.log($scope.albums);
+                    // displayAlbums(x.items);
+                });
+
+    });
+
+        function displayAlbums(albums){
+            console.log(albums);
+            console.log(albums[0]);
+        // $('#albumContent').append('<div class="inline grid_list"><img class="cover" ng-src="albums[0].images[0].url" width="160" height="160"> <div class="grid_title">'+albums[0].name+'</div></div><div class="clear"></div>')
+        }
 
 
 }]);

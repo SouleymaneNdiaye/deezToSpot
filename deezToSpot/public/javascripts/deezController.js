@@ -3,7 +3,7 @@ var LOGNS = 'APP ::';
 var APP_ID = '218244';
 var CHANNEL_URL = 'http://localhost:9000/channel';
 
-var angapp = angular.module('app', []);
+var angapp = angular.module('deezApp', []);
 
 angapp.config(function($routeProvider) {
     $routeProvider
