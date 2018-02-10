@@ -79,6 +79,8 @@
             <a href="#/artists" class="link_tabs" ng-class="{active: view == 'artists'}">Artists</a>
             <a href="#/favorites" class="link_tabs" ng-class="{active: view == 'favorites'}">Favorites</a>
             <a class="login_link" ng-click="login()" ng-hide="{{logged}}">Connect with Deezer</a>
+            <a class="link_tabs" id="lastStep"><</a>
+            <a class="link_tabs" id="nextStep">></a>
         </div>
 
         <div ng-show="view == 'loading'" class="loader">

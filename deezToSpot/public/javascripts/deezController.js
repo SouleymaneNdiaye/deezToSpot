@@ -28,6 +28,12 @@ angapp.config(function($routeProvider) {
         .when("/favorites", {
             action: "favorites"
         })
+        .when("/nextAlbums", {
+            action: "nextAlbums"
+        })
+        .when("/lastAlbums", {
+            action: "lastAlbums"
+        })
         .when("/search/:pattern", {
             action: "search"
         })
@@ -62,7 +68,7 @@ angapp.controller("AppController", function($scope, $route, $routeParams, $locat
     // Init config
     $rootScope.title = 'DZ';
     $scope.logged = false;
-
+    $scope.step=0;
     $scope.view = 'loading';
     $scope.albums = [];
     $scope.artists = [];
@@ -280,7 +286,7 @@ angapp.controller("AppController", function($scope, $route, $routeParams, $locat
                 break;
 
             case 'albums':
-                DZ.api('/user/me/albums', function(response){
+                DZ.api('/user/me/albums?limit=25', function(response){
                     console.log(LOGNS, 'albums', response.data);
                     $scope.albums = response.data;
                     $scope.view = renderAction;
@@ -389,10 +395,67 @@ angapp.controller("AppController", function($scope, $route, $routeParams, $locat
                 $scope.$apply();
                 break;
 
+            case 'nextStep':
+
+
             default:
                 return;
         }
 
         $scope.view = 'loading';
     };
+
+    getNextAlbums = document.getElementById('nextStep');
+
+    getNextAlbums.addEventListener('click', function () {
+        if($scope.albums.length==25){
+            var nextStep=$scope.step+1;
+            $scope.step=$scope.step+1;
+
+        }
+        else{
+            var nextStep=$scope.step;
+        }
+        console.log($scope.albums.length)
+        var index=nextStep*25;
+        DZ.api('/user/me/albums?limit=25&index='+index, function(response){
+            console.log(LOGNS, 'albums', response);
+            $scope.albums = response.data;
+            $scope.view = 'albums';
+            $rootScope.title = 'Albums';
+            $scope.$apply();
+
+            $('img').on('load', function(){
+                console.log(LOGNS, this);
+                $(this).css('opacity', 1);
+            });
+        });
+    });
+    getLastAlbums = document.getElementById('lastStep');
+
+    getLastAlbums.addEventListener('click', function () {
+        if($scope.step>0){
+            var lastStep=$scope.step-1;
+            $scope.step=$scope.step-1;
+
+        }
+        else{
+            var lastStep=$scope.step;
+        }
+        var index=lastStep*25;
+        DZ.api('/user/me/albums?limit=25&index='+index, function(response){
+            console.log(LOGNS, 'albums', response);
+            $scope.albums = response.data;
+            $scope.view = 'albums';
+            $rootScope.title = 'Albums';
+            $scope.$apply();
+
+            $('img').on('load', function(){
+                console.log(LOGNS, this);
+                $(this).css('opacity', 1);
+            });
+        });
+    });
+
+
 });
