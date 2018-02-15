@@ -7,6 +7,7 @@ app.controller("deezToSpot",['$scope',function($scope) {
     $scope.test=null;
     $scope.albums=[];
     $scope.userId=undefined;
+    $scope.searchAlbum=undefined;
     $scope.userTest=undefined;
     $scope.step=0;
     $scope.user={
@@ -88,6 +89,24 @@ app.controller("deezToSpot",['$scope',function($scope) {
 
         });
     }
+    function getSearchAlbum(accessToken,queryAlbum){
+            return $.ajax({
+                url: 'https://api.spotify.com/v1/search?q='+queryAlbum+'&type=album&limit=1',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken
+                }
+
+            });
+    }
+    function getSingleAlbum(accessToken,href) {
+        return $.ajax({
+            url: 'https://api.spotify.com/v1/search?q='+query+'&type=album&limit=1',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            }
+
+        });
+    }
     loginButton = document.getElementById('btn-login');
 
     loginButton.addEventListener('click', function () {
@@ -109,6 +128,24 @@ app.controller("deezToSpot",['$scope',function($scope) {
         $scope.userId=response.id;
 
     }
+
+    getSearchAlbumBtn=document.getElementById('get-search-album');
+    getSearchAlbumBtn.addEventListener('click', function () {
+        var pathArray=window.location.href.split('=');
+        var accessToken=pathArray[1].split('&')[0];
+        var queryArtist=$('#search-query-artist').val();
+        if((queryArtist!=null && queryArtist!='undefined')) {
+            getSearchAlbum(accessToken, queryArtist)
+                .then(function (response) {
+                    loginButton.style.display = 'none';
+                    var x = JSON.parse(JSON.stringify(response.albums));
+
+                    $scope.searchAlbum = x;
+                    $scope.$apply();
+                    console.log($scope.searchAlbum);
+                });
+        }
+    });
     getUser = document.getElementById('get_user');
 
     getUser.addEventListener('click', function () {
@@ -136,8 +173,6 @@ app.controller("deezToSpot",['$scope',function($scope) {
             .then(function (response) {
                 loginButton.style.display = 'none';
                 var x =JSON.parse(JSON.stringify(response));
-                console.log(x);
-
                 $scope.albums=x.items;
                 $scope.$apply();
             });
@@ -154,8 +189,6 @@ app.controller("deezToSpot",['$scope',function($scope) {
             .then(function (response) {
                 loginButton.style.display = 'none';
                 var x =JSON.parse(JSON.stringify(response));
-                console.log(x);
-
                 $scope.albums=x.items;
                 $scope.$apply();
             });
@@ -172,7 +205,6 @@ app.controller("deezToSpot",['$scope',function($scope) {
             .then(function (response) {
                 loginButton.style.display = 'none';
                 var x =JSON.parse(JSON.stringify(response));
-                console.log(x);
 
                 $scope.albums=x.items;
                 $scope.$apply();
