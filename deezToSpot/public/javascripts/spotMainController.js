@@ -107,6 +107,17 @@ app.controller("deezToSpot",['$scope',function($scope) {
 
         });
     }
+
+    function putAlbum(accessToken,id) {
+        return $.ajax({
+            type:'PUT',
+            url: 'https://api.spotify.com/v1/me/albums?ids='+id,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            }
+
+        });
+    }
     loginButton = document.getElementById('btn-login');
 
     loginButton.addEventListener('click', function () {
@@ -209,7 +220,21 @@ app.controller("deezToSpot",['$scope',function($scope) {
                 $scope.albums=x.items;
                 $scope.$apply();
             });
+    });
 
+
+    putAlbums = document.getElementById('idOfAlbums');
+
+    putAlbums.addEventListener('click', function () {
+        var pathArray=window.location.href.split('=');
+        var accessToken=pathArray[1].split('&')[0];
+        var id=$('#searchAlbumId').val();
+        putAlbum(accessToken,id)
+            .then(function (response) {
+                loginButton.style.display = 'none';
+                var x =JSON.parse(JSON.stringify(response));
+                console.log(x);
+            });
     });
 
 

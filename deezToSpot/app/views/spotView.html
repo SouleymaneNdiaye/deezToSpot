@@ -59,6 +59,8 @@
     </div>
     <div id="wrapperSpot" class="layoutWrapper col-md-4" ng-controller="deezToSpot">
 <img ng-src="{{searchAlbum.items[0].images[0].url}}" width="300" height="300"/>
+        <input type="hidden" value="{{searchAlbum.items[0].id}}" id="searchAlbumId">
+        <button class="btn btn-primary"  id="idOfAlbums">Exporter l'album</button>
         <div>
 </div>
 
