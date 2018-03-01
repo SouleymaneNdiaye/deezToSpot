@@ -14,6 +14,9 @@ GET     /getDeezAlbums                          Application.getGson
 POST     /viewAlbum                             Application.getDeezAlbum
 GET     /viewDeez                               Application.getDeezView
 GET     /viewSpot/?                               Application.getSpotView
+GET     /deezToSpot/?                            Application.spotToDeezView
+GET     /deez.inc.html/?                            Application.deezInc
+GET     /spot.inc.html/?                            Application.spotInc
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
