@@ -91,7 +91,7 @@ app.controller("deezToSpot",['$scope',function($scope) {
     }
     function getSearchAlbum(accessToken,queryAlbum){
             return $.ajax({
-                url: 'https://api.spotify.com/v1/search?q='+queryAlbum+'&type=album&limit=1',
+                url: 'https://api.spotify.com/v1/search?q='+queryAlbum+'&type=album&limit=10',
                 headers: {
                     'Authorization': 'Bearer ' + accessToken
                 }
@@ -145,15 +145,24 @@ app.controller("deezToSpot",['$scope',function($scope) {
         var pathArray=window.location.href.split('=');
         var accessToken=pathArray[1].split('&')[0];
         var queryArtist=$('#search-query-artist').val();
+        var queryArtistName=$('#search-query-artist-name').val();
         if((queryArtist!=null && queryArtist!='undefined')) {
             getSearchAlbum(accessToken, queryArtist)
                 .then(function (response) {
                     loginButton.style.display = 'none';
                     var x = JSON.parse(JSON.stringify(response.albums));
-
-                    $scope.searchAlbum = x;
-                    $scope.$apply();
-                    console.log($scope.searchAlbum);
+                    for(var i=0;i<x.items.length;i++){
+                        if(x.items[i].artists[0].name.toUpperCase()==queryArtistName.toUpperCase()){
+                            $scope.searchAlbum = x.items[i];
+                            $scope.$apply();
+                            console.log(x);
+                            return;
+                        }
+                    }
+                    // $scope.searchAlbum = x.items[0];
+                    // $scope.$apply();
+                    // console.log($scope.searchAlbum);
+                    // console.log(x);
                 });
         }
     });

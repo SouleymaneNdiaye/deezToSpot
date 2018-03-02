@@ -47,6 +47,7 @@
             <button class="btn btn-primary" id="nextStep">></button>
             <button class="btn btn-primary" id="get-search-album">Rechercher un album</button>
             <input type="text" id="search-query-artist" placeholder="Titre de l'album">
+            <input type="text" id="search-query-artist-name" placeholder="Nom de l'artiste">
             <div id="albumContent">
 
             </div>
@@ -58,7 +59,7 @@
         </div>
     </div>
     <div id="wrapperSpot" class="layoutWrapper col-md-4" ng-controller="deezToSpot">
-<img ng-src="{{searchAlbum.items[0].images[0].url}}" width="300" height="300"/>
+<img ng-src="{{searchAlbum.images[0].url}}" width="300" height="300"/>
         <input type="hidden" value="{{searchAlbum.items[0].id}}" id="searchAlbumId">
         <button class="btn btn-primary"  id="idOfAlbums">Exporter l'album</button>
         <div>
