@@ -5,6 +5,8 @@ var app = angular.module('app', []);
 app.controller("deezToSpot",['$scope',function($scope) {
 
     $scope.test=null;
+    $scope.connected=false;
+    $scope.accessToken='';
     $scope.albums=[];
     $scope.userId=undefined;
     $scope.searchAlbum=undefined;
@@ -50,6 +52,13 @@ app.controller("deezToSpot",['$scope',function($scope) {
             'user-read-email','user-library-read','user-library-modify'
         ]);
 
+        function setToken(){
+            $('#ifmReport').attr('src',url);
+            $('#ifmReport').on('load',function () {
+                $scope.accessToken= $('#ifmReport').contents()[0].baseURI.split('=')[1].split('&')[0];
+            });
+        }
+
         var width = 450,
             height = 730,
             left = (screen.width / 2) - (width / 2),
@@ -62,13 +71,32 @@ app.controller("deezToSpot",['$scope',function($scope) {
             }
         }, false);
 
-        var w = window.open(url);
+        setToken();
+        setTimeout(function(){
+
+            console.log($scope.accessToken);
+            $scope.$apply();
+            if($scope.accessToken!=null && $scope.accessToken!=''){
+                getUserData($scope.accessToken).then(function (response) {
+                    var x =JSON.parse(JSON.stringify(response));
+                    $scope.user=x;
+                    $scope.connected=true;
+                    $scope.$apply();
+                });
+                $scope.connected=true;
+            }else{
+                window.location=url;
+            }
+            // console.log($scope.accessToken);
+            $scope.$apply();
+
+        }, 1000);
 
     }
 
 
     $('#display_user').click(function () {
-        console.log($scope.user);
+
 
     });
     function getUserData(accessToken) {
@@ -122,12 +150,12 @@ app.controller("deezToSpot",['$scope',function($scope) {
 
     loginButton.addEventListener('click', function () {
         login(function (accessToken) {
-            getUserData(accessToken)
+            getUserData($scope.accessToken)
                 .then(function (response) {
-                    loginButton.style.display = 'none';
                     var x =JSON.parse(JSON.stringify(response));
                     $scope.user=x;
-                    $scope.$apply()
+                    $scope.connected=true;
+                    $scope.$apply();
                 });
         });
     });
@@ -143,19 +171,18 @@ app.controller("deezToSpot",['$scope',function($scope) {
     getSearchAlbumBtn=document.getElementById('get-search-album');
     getSearchAlbumBtn.addEventListener('click', function () {
         var pathArray=window.location.href.split('=');
-        var accessToken=pathArray[1].split('&')[0];
-        var queryArtist=$('#search-query-artist').val();
+        var accessToken=$scope.accessToken;
+        var queryAlbum=$('#search-query-title-album').val();
         var queryArtistName=$('#search-query-artist-name').val();
-        if((queryArtist!=null && queryArtist!='undefined')) {
-            getSearchAlbum(accessToken, queryArtist)
+        if((queryAlbum!=null && queryAlbum!='undefined')) {
+            getSearchAlbum(accessToken, queryAlbum)
                 .then(function (response) {
                     loginButton.style.display = 'none';
-                    var x = JSON.parse(JSON.stringify(response.albums));
-                    for(var i=0;i<x.items.length;i++){
-                        if(x.items[i].artists[0].name.toUpperCase()==queryArtistName.toUpperCase()){
-                            $scope.searchAlbum = x.items[i];
+                    var albums = JSON.parse(JSON.stringify(response.albums));
+                    for(var i=0;i<albums.items.length;i++){
+                        if(albums.items[i].artists[0].name.toUpperCase()==queryArtistName.toUpperCase()){
+                            $scope.searchAlbum = albums.items[i];
                             $scope.$apply();
-                            console.log(x);
                             return;
                         }
                     }
@@ -166,28 +193,11 @@ app.controller("deezToSpot",['$scope',function($scope) {
                 });
         }
     });
-    getUser = document.getElementById('get_user');
-
-    getUser.addEventListener('click', function () {
-        var pathArray=window.location.href.split('=');
-        var accessToken=pathArray[1].split('&')[0];
-
-        getUserData(accessToken)
-            .then(function (response) {
-                loginButton.style.display = 'none';
-                var x =JSON.parse(JSON.stringify(response));
-
-                $scope.user=x;
-                $scope.$apply();
-            });
-
-    });
 
     getUserAlbumsBtn = document.getElementById('get_albums');
 
     getUserAlbumsBtn.addEventListener('click', function () {
-        var pathArray=window.location.href.split('=');
-        var accessToken=pathArray[1].split('&')[0];
+        var accessToken=$scope.accessToken;
 
         getUserAlbums(accessToken,0)
             .then(function (response) {
@@ -201,8 +211,7 @@ app.controller("deezToSpot",['$scope',function($scope) {
     getNextAlbums = document.getElementById('nextStep');
 
     getNextAlbums.addEventListener('click', function () {
-        var pathArray=window.location.href.split('=');
-        var accessToken=pathArray[1].split('&')[0];
+        var accessToken=$scope.accessToken;
         var offset=getUperOffset();
 
         getUserAlbums(accessToken,offset)
@@ -217,8 +226,7 @@ app.controller("deezToSpot",['$scope',function($scope) {
     getLastAlbums = document.getElementById('lastStep');
 
     getLastAlbums.addEventListener('click', function () {
-        var pathArray=window.location.href.split('=');
-        var accessToken=pathArray[1].split('&')[0];
+        var accessToken=$scope.accessToken;
         var offset=getLowerOffset();
 
         getUserAlbums(accessToken,offset)
@@ -235,14 +243,12 @@ app.controller("deezToSpot",['$scope',function($scope) {
     putAlbums = document.getElementById('idOfAlbums');
 
     putAlbums.addEventListener('click', function () {
-        var pathArray=window.location.href.split('=');
-        var accessToken=pathArray[1].split('&')[0];
+        var accessToken=$scope.accessToken;
         var id=$('#searchAlbumId').val();
         putAlbum(accessToken,id)
             .then(function (response) {
                 loginButton.style.display = 'none';
                 var x =JSON.parse(JSON.stringify(response));
-                console.log(x);
             });
     });
 

@@ -1,0 +1,8 @@
+
+*.ipr
+
+deezToSpot/tmp/bytecode/DEV/
+
+deezToSpot/tmp/classes/controllers/
+
+deezToSpot/tmp/classes/

@@ -3,8 +3,6 @@
 <head>
     <meta name="viewport" content="width=device-width"/>
     <link href="" rel="stylesheet" type="text/css"/>
-    <link rel="shortcut icon" href="http://www.deezer.com/favicon.ico" type="image/x-icon"/>
-    <link rel="icon" href="http://www.deezer.com/favicon.ico" type="image/x-icon"/>
     <link href="/../public/stylesheets/deezStyle.css" rel="stylesheet">
     <link href="/../public/images/sprite.css" rel="stylesheet">
 
@@ -27,43 +25,50 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-
 </head>
 <body class="app">
-<div ng-app="app">
-
-    <div id="wrapperSpot" class="layoutWrapper col-md-8" ng-controller="deezToSpot">
-        <div id="header">
-            <div class="pull-right" ng-show="user.id != 'undefined'"><img ng-src="{{user.images[0].url}}" width="80"
-                                                                          height="80" class="inline" id="cover_image"/>
+<div ng-app="app" >
+    <div class="col-md-6">
+        <div id="wrapperSpot" ng-controller="deezToSpot">
+            <div id="header" ng-show="connected==true">
+                <div class="pull-right" ng-show="user.id != 'undefined'"><img ng-src="{{user.images[0].url}}" width="80"
+                                                                              height="80" class="inline"
+                                                                              id="cover_image"/>
+                </div>
+                <div class="pull-right" ng-show="user.id != 'undefined'">Bienvenue {{user.display_name}}</div>
+                <div class="pull-left" ng-controller="deezToSpot" ng-show="connected==true && searchAlbum!=null">
+                    <img ng-src="{{searchAlbum.images[0].url}}" width="80" height="80"/>
+                    <input type="hidden" value="{{searchAlbum.items[0].id}}" id="searchAlbumId">
+                    <button class="btn btn-primary" tooltip="exporter" id="idOfAlbums">Exporter</button>
+                </div>
             </div>
-            <div class="pull-right" ng-show="user.id != 'undefined'">Bienvenue {{user.display_name}}</div>
-        </div>
-        <div id="content">
-            <button class="btn btn-primary" id="btn-login">Se connecter à Spotify</button>
-            <button class="btn btn-primary" id="get_user">Données utilisateur</button>
-            <button class="btn btn-primary" id="get_albums">Albums de l'utilisateur</button>
-            <button class="btn btn-primary" id="lastStep"><</button>
-            <button class="btn btn-primary" id="nextStep">></button>
-            <button class="btn btn-primary" id="get-search-album">Rechercher un album</button>
-            <input type="text" id="search-query-artist" placeholder="Titre de l'album">
-            <input type="text" id="search-query-artist-name" placeholder="Nom de l'artiste">
-            <div id="albumContent">
+            <div id="content">
+                <button  ng-show="connected==false" class="btn btn-spot" id="btn-login">
+                    <img src="public/images/logo-spoti.svg.png" width="100px" height="100px">
+                                      Se connecter à Spotify</button>
+                <button ng-show="connected==true" class="btn btn-primary" id="get_albums">Albums de l'utilisateur
+                </button>
+                <button ng-show="connected==true" class="btn btn-primary" id="lastStep"><</button>
+                <button ng-show="connected==true" class="btn btn-primary" id="nextStep">></button>
+                <button ng-show="connected==true" class="btn btn-primary" id="get-search-album">Rechercher un album
+                </button>
+                <input ng-show="connected==true" type="text" id="search-query-title-album"
+                       placeholder="Titre de l'album">
+                <input ng-show="connected==true" type="text" id="search-query-artist-name"
+                       placeholder="Nom de l'artiste">
+                <div ng-show="connected==true" id="albumContent">
 
+                </div>
             </div>
-        </div>
-        <div ng-repeat="album in albums" class="inline grid_list">
-                <img class="cover" ng-src="{{album.album.images[1].url}}" width="160" height="160" style="opacity: 1">
+            <div ng-show="connected==true" ng-repeat="album in albums" class="inline grid_list">
+                <img class="cover" ng-src="{{album.album.images[1].url}}" width="auto" height="160" style="opacity: 1">
                 <div class="grid_title">{{album.album.name}}</div>
-            <div class="clear"></div>
+                <div class="clear"></div>
+            </div>
         </div>
     </div>
-    <div id="wrapperSpot" class="layoutWrapper col-md-4" ng-controller="deezToSpot">
-<img ng-src="{{searchAlbum.images[0].url}}" width="300" height="300"/>
-        <input type="hidden" value="{{searchAlbum.items[0].id}}" id="searchAlbumId">
-        <button class="btn btn-primary"  id="idOfAlbums">Exporter l'album</button>
-        <div>
 </div>
-
+<iframe id="ifmReport" width="0" height="0">
+</iframe>
 </body>
 </html>
